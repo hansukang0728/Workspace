@@ -12,4 +12,8 @@ public abstract class Entry {
     public String toString() {                                     
         return getName() + " (" + getSize() + ")";
     }
+    
+    public void getFullName() {
+    	 StringBuffer fullname = new StringBuffer();
+    }
 }
