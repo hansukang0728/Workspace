@@ -30,29 +30,30 @@ import java.io.*;
 import java.util.*;
 
 /***
- *	Pass this exporter to a {@link Table#export} implementation to
- *	create a comma-sparated-value version of a {@link Table}.
- *	For example:
- *	<PRE>
+ * Pass this exporter to a {@link Table#export} implementation to create a
+ * comma-sparated-value version of a {@link Table}. For example:
+ * 
+ * <PRE>
  *	Table people  = TableFactory.create( ... );
  *	//...
  *	Writer out = new FileWriter( "people.csv" );
  *	people.export( new CSVExporter(out) );
  *	out.close();
- *	</PRE>
- *	The output file for a table called "name" with
- *	columns "first," "last," and "addrId" would look
- *	like this:
- *	<PRE>
+ * </PRE>
+ * 
+ * The output file for a table called "name" with columns "first," "last," and
+ * "addrId" would look like this:
+ * 
+ * <PRE>
  *	name
  *	first,	last,	addrId
  *	Fred,	Flintstone,	1
  *	Wilma,	Flintstone,	1
  *	Allen,	Holub,	0
- *	</PRE>
- *	The first line is the table name, the second line
- *	identifies the columns, and the subsequent lines define
- *	the rows.
+ * </PRE>
+ * 
+ * The first line is the table name, the second line identifies the columns, and
+ * the subsequent lines define the rows.
  *
  * @include /etc/license.txt
  * @see Table
@@ -60,42 +61,43 @@ import java.util.*;
  * @see CSVImporter
  */
 
-public class CSVExporter implements Table.Exporter
-{	private final Writer out;
-	private 	  int	 width;
+public class CSVExporter implements Table.Exporter {
+	private final Writer out;
+	private int width;
 
-	public CSVExporter( Writer out )
-	{	this.out = out;
+	public CSVExporter(Writer out) {
+		this.out = out;
 	}
 
-	public void storeMetadata( String tableName,
-							   int width,
-							   int height,
-							   Iterator columnNames ) throws IOException
+	public void storeMetadata(String tableName, int width, int height, Iterator columnNames) throws IOException
 
-	{	this.width = width;
-		out.write(tableName == null ? "<anonymous>" : tableName );
+	{
+		this.width = width;
+		out.write(tableName == null ? "<anonymous>" : tableName);
 		out.write("\n");
-		storeRow( columnNames ); // comma separated list of columns ids
+		storeRow(columnNames); // comma separated list of columns ids
 	}
 
-	public void storeRow( Iterator data ) throws IOException
-	{	int i = width;
-		while( data.hasNext() )
-		{	Object datum = data.next();
+	public void storeRow(Iterator data) throws IOException {
+		int i = width;
+		while (data.hasNext()) {
+			Object datum = data.next();
 
 			// Null columns are represented by an empty field
 			// (two commas in a row). There's nothing to write
 			// if the column data is null.
-			if( datum != null )	
-				out.write( datum.toString() );
+			if (datum != null)
+				out.write(datum.toString());
 
-			if( --i > 0 )
+			if (--i > 0)
 				out.write(",\t");
 		}
 		out.write("\n");
 	}
 
-	public void startTable() throws IOException {/*nothing to do*/}
-	public void endTable()   throws IOException {/*nothing to do*/}
+	public void startTable() throws IOException {
+		/* nothing to do */}
+
+	public void endTable() throws IOException {
+		/* nothing to do */}
 }
