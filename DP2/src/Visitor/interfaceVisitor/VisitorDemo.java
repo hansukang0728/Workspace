@@ -1,14 +1,19 @@
+
 package Visitor.interfaceVisitor;
 
 interface ICarElementVisitor {
     void visit(Wheel wheel);
     void visit(Engine engine);
     void visit(Body body);
-    void visit(Car car); 
+    void visit(Car car);
+    void visit(ICarElement iCarElement); 
 }
 
-interface ICarElement {
-    abstract public void accept(ICarElementVisitor visitor);   
+abstract class ICarElement {
+    public void accept(ICarElementVisitor visitor) {
+        visitor.visit(this);     
+    }
+    
 }
 
 public class VisitorDemo {
@@ -19,26 +24,27 @@ public class VisitorDemo {
     }
 }
 
-class Wheel implements ICarElement {
+class Wheel extends ICarElement {
     private String name;
     public Wheel(String name) { this.name = name; } 
     public String getName() { return this.name; }
-    public void accept(ICarElementVisitor visitor) {
-        visitor.visit(this);     
-    }
+    //public void accept(ICarElementVisitor visitor) {
+    //    visitor.visit(this);     
+    //}
 }
-class Engine implements ICarElement {
-    public void accept(ICarElementVisitor visitor) {
-        visitor.visit(this);     
-    }
+class Engine extends ICarElement {
+    //public void accept(ICarElementVisitor visitor) {
+    //    visitor.visit(this);     
+    //}
 }
-class Body implements ICarElement {
-    public void accept(ICarElementVisitor visitor) {
-        visitor.visit(this);     
-    }
+class Body extends ICarElement {
+    //public void accept(ICarElementVisitor visitor) {
+    //    visitor.visit(this);     
+    //}
 }
 
-class Car implements ICarElement {
+
+class Car extends ICarElement {
     ICarElement[] elements;
     public Car() {
         this.elements = new ICarElement[] { new Wheel("front left"), new Wheel("front right"), new Wheel("back left") , new Wheel("back right"), new Body(), new Engine() }; 
@@ -63,6 +69,10 @@ class CarElementPrintVisitor implements ICarElementVisitor {
     public void visit(Car car) {      
         System.out.println("Visiting car");     
     }
+    @Override
+    public void visit(ICarElement iCarElement) {
+        System.out.println("dummy");        
+    }
 }
 
 class CarElementDoVisitor implements ICarElementVisitor {	
@@ -76,6 +86,10 @@ class CarElementDoVisitor implements ICarElementVisitor {
     }
     public void visit(Car car) {
         System.out.println("Starting my car");
+    }
+    @Override
+    public void visit(ICarElement iCarElement) {
+        System.out.println("dummy");        
     }
 }
 
