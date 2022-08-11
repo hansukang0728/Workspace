@@ -1,25 +1,25 @@
 package hiroshi.builderAnswer;
 public class TextBuilder extends Builder {
-    private String buffer = "";                           // ÀÌ ÇÊµå¿¡ ¹®¼­¸¦ ±¸ÃàÇÑ´Ù
-    public void makeTitle(String title) {                   // ÀÏ¹Ý ÅØ½ºÆ®ÀÇ Å¸ÀÌÆ²
-        buffer += "==============================\n";      // Àå½Ä¼±
-        buffer += "¡º" + title + "¡»\n";                   // ¡º¡»ºÙÀº Å¸ÀÌÆ²
-        buffer += "\n";                                 // ºóÇà
+    private String buffer = "";                           // ï¿½ï¿½ ï¿½Êµå¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
+    public void makeTitle(String title) {                   // ï¿½Ï¹ï¿½ ï¿½Ø½ï¿½Æ®ï¿½ï¿½ Å¸ï¿½ï¿½Æ²
+        buffer += "==============================\n";      // ï¿½ï¿½Ä¼ï¿½
+        buffer += "ï¿½ï¿½" + title + "ï¿½ï¿½\n";                   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½Æ²
+        buffer += "\n";                                 // ï¿½ï¿½ï¿½ï¿½
     }
-    public void makeString(String str) {                    // ÀÏ¹Ý ÅØ½ºÆ®¿¡¼­ÀÇ ¹®ÀÚ¿­
-        buffer += '¡á' + str + "\n";                       // ¡áºÙÀº ¹®ÀÚ¿­
-        buffer += "\n";                                  // ºóÇà
+    public void makeString(String str) {                    // ï¿½Ï¹ï¿½ ï¿½Ø½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
+        buffer += ' ' + str + "\n";                       // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú¿ï¿½
+        buffer += "\n";                                  // ï¿½ï¿½ï¿½ï¿½
     }
-    public void makeItems(String[] items) {                 // ÀÏ¹Ý ÅØ½ºÆ®¿¡¼­ÀÇ °³º°Ç×¸ñ
+    public void makeItems(String[] items) {                 // ï¿½Ï¹ï¿½ ï¿½Ø½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½×¸ï¿½
         for (int i = 0; i < items.length; i++) {
-            buffer += " ¤ý" + items[i] + "\n";             // ¤ýºÙÀº Ç×¸ñ
+            buffer += "   " + items[i] + "\n";             // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½
         }
-        buffer += "\n";                                  // ºóÇà
+        buffer += "\n";                                  // ï¿½ï¿½ï¿½ï¿½
     }
-    public void close() {                                  // ¹®¼­ÀÇ ¿Ï¼º
-        buffer += "==============================\n";           // Àå½Ä¼±
+    public void close() {                                  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï¼ï¿½
+        buffer += "==============================\n";           // ï¿½ï¿½Ä¼ï¿½
     }
-    public String getResult() {                             // ¿Ï¼ºÇÑ ¹®¼­
+    public String getResult() {                             // ï¿½Ï¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         return buffer;
     }
 }

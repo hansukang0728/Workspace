@@ -5,6 +5,7 @@ interface ICarElementVisitor {
     void visit(Engine engine);
     void visit(Body body);
     void visit(Car car); 
+    void visit(Trunk trunk);
 }
 
 interface ICarElement {
@@ -39,10 +40,15 @@ class Body implements ICarElement {
     }
 }
 
+class Trunk implements ICarElement {
+    public void accept(ICarElementVisitor visitor) {
+        visitor.visit(this);     
+    }
+}
 class Car implements ICarElement {
     ICarElement[] elements;
     public Car() {
-        this.elements = new ICarElement[] { new Wheel("front left"), new Wheel("front right"), new Wheel("back left") , new Wheel("back right"), new Body(), new Engine() }; 
+        this.elements = new ICarElement[] { new Wheel("front left"), new Wheel("front right"), new Wheel("back left") , new Wheel("back right"), new Body(), new Engine(), new Trunk() }; 
     }
     public void accept(ICarElementVisitor visitor) {    
         for(ICarElement elem : elements) 
@@ -64,6 +70,10 @@ class CarElementPrintVisitor implements ICarElementVisitor {
     public void visit(Car car) {      
         System.out.println("Visiting car");     
     }
+
+    public void visit(Trunk trunk) {      
+        System.out.println("Visiting trunk");     
+    }
 }
 
 class CarElementDoVisitor implements ICarElementVisitor {	
@@ -78,6 +88,10 @@ class CarElementDoVisitor implements ICarElementVisitor {
     public void visit(Car car) {
         System.out.println("Starting my car");
     }
+
+    public void visit(Trunk trunk) {      
+        System.out.println("Starting my trunk");     
+    }
 }
 
 class CarElementDestroyVisitor implements ICarElementVisitor {	
@@ -91,5 +105,9 @@ class CarElementDestroyVisitor implements ICarElementVisitor {
     }
     public void visit(Car car) {
         System.out.println("Destroying car");
+    }
+
+    public void visit(Trunk trunk) {      
+        System.out.println("Destroying my trunk");     
     }
 }

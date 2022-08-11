@@ -5,15 +5,11 @@ interface ICarElementVisitor {
     void visit(Wheel wheel);
     void visit(Engine engine);
     void visit(Body body);
-    void visit(Car car);
-    void visit(ICarElement iCarElement); 
+    void visit(Car car);    
 }
 
-abstract class ICarElement {
-    public void accept(ICarElementVisitor visitor) {
-        visitor.visit(this);     
-    }
-    
+interface ICarElement {    
+    abstract public void accept(ICarElementVisitor visitor);
 }
 
 public class VisitorDemo {
@@ -21,30 +17,31 @@ public class VisitorDemo {
         ICarElement car = new Car();
         car.accept(new CarElementPrintVisitor());
         car.accept(new CarElementDoVisitor()); 
+        car.accept(new CarElementDestroyVisitor());
     }
 }
 
-class Wheel extends ICarElement {
+class Wheel implements ICarElement {
     private String name;
     public Wheel(String name) { this.name = name; } 
     public String getName() { return this.name; }
-    //public void accept(ICarElementVisitor visitor) {
-    //    visitor.visit(this);     
-    //}
+    public void accept(ICarElementVisitor visitor) {
+        visitor.visit(this);     
+    }
 }
-class Engine extends ICarElement {
-    //public void accept(ICarElementVisitor visitor) {
-    //    visitor.visit(this);     
-    //}
+class Engine implements ICarElement {
+    public void accept(ICarElementVisitor visitor) {
+        visitor.visit(this);     
+    }
 }
-class Body extends ICarElement {
-    //public void accept(ICarElementVisitor visitor) {
-    //    visitor.visit(this);     
-    //}
+class Body implements ICarElement {
+    public void accept(ICarElementVisitor visitor) {
+        visitor.visit(this);     
+    }
 }
 
 
-class Car extends ICarElement {
+class Car implements ICarElement {
     ICarElement[] elements;
     public Car() {
         this.elements = new ICarElement[] { new Wheel("front left"), new Wheel("front right"), new Wheel("back left") , new Wheel("back right"), new Body(), new Engine() }; 
@@ -69,10 +66,6 @@ class CarElementPrintVisitor implements ICarElementVisitor {
     public void visit(Car car) {      
         System.out.println("Visiting car");     
     }
-    @Override
-    public void visit(ICarElement iCarElement) {
-        System.out.println("dummy");        
-    }
 }
 
 class CarElementDoVisitor implements ICarElementVisitor {	
@@ -87,9 +80,18 @@ class CarElementDoVisitor implements ICarElementVisitor {
     public void visit(Car car) {
         System.out.println("Starting my car");
     }
-    @Override
-    public void visit(ICarElement iCarElement) {
-        System.out.println("dummy");        
-    }
 }
 
+class CarElementDestroyVisitor implements ICarElementVisitor {	
+    public void visit(Wheel wheel) {
+        System.out.println("destroy my " + wheel.getName() + " wheel");  }
+    public void visit(Engine engine) {
+        System.out.println("destroy my engine");
+    }
+    public void visit(Body body) {
+        System.out.println("destroy my body");
+    }
+    public void visit(Car car) {
+        System.out.println("destroy my car");
+    }
+}
